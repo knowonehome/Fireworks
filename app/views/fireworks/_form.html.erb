@@ -1,0 +1,46 @@
+<%= form_with(model: firework, local: true) do |form| %>
+  <% if firework.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(firework.errors.count, "error") %> prohibited this firework from being saved:</h2>
+
+      <ul>
+      <% firework.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :firework_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sytle %>
+    <%= form.text_field :sytle, id: :firework_sytle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :firework_description %>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Alternate Name</th>
+      </tr>
+    </thead>
+
+    <tbody class="fields">
+      <%= form.simple_fields_for :alternate_names do |builder| %>
+        <%= render 'alternate_name', form: builder %>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="actions">
+    <%= form.submit %>
+    <%= link_to_add_row('Add Alt name', form, :alternate_names) %>
+  </div>
+<% end %>
